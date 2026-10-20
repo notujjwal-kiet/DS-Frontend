@@ -3,15 +3,15 @@ import { createRoot } from 'react-dom/client';
 import './styles.css';
 
 const stages = [
-  ['goal', 'Goal & context', 'Clarify what you want to build'],
-  ['research', 'Research sources', 'Find current, reliable material'],
-  ['concepts', 'Extract concepts', 'Turn sources into key ideas'],
-  ['explain', 'Explain the topic', 'Build a grounded mental model'],
-  ['map', 'Map connections', 'Connect ideas and dependencies'],
-  ['practice', 'Create practice', 'Check understanding with questions'],
-  ['gate', 'Code readiness', 'Decide what code support fits'],
-  ['response', 'Compose response', 'Assemble your learning guide'],
-  ['complete', 'Ready to learn', 'Review your personalized path'],
+  ['goal', 'Developer goal & skill context', 'Clarify what you want to build'],
+  ['plan', 'Intent & learning plan', 'Turn your goal into a focused path'],
+  ['research', 'Research & source discovery', 'Find current, relevant material'],
+  ['evidence', 'Evidence review', 'Separate support from uncertainty'],
+  ['explain', 'Explanation & concept mapping', 'Build a grounded mental model'],
+  ['project', 'Guided project work', 'Connect learning to implementation'],
+  ['practice', 'Understanding check', 'Check what you can explain'],
+  ['gate', 'Code assistance gate', 'Decide what support fits'],
+  ['complete', 'Progress & reflection', 'Review your next recommended step'],
 ];
 
 const sampleResponse = {
@@ -129,13 +129,13 @@ function App() {
   ];
   return <div className="app-shell">
     <aside className="sidebar">
-      <div className="brand"><div className="brand-mark">L</div><div><strong>Learnboard</strong><span>BUILD WITH CONTEXT</span></div></div>
+      <div className="brand"><div className="brand-mark">✦</div><div><strong>Dev<span>Scout</span></strong><small>LEARN WHILE YOU BUILD</small></div></div>
       <div className="sidebar-label">WORKSPACE</div>
       <nav>{nav.map(([label, icon]) => <button key={label} className={page === label ? 'nav-item active' : 'nav-item'} onClick={() => setPage(label)}><Icon name={icon} /><span>{label}</span>{label === 'Pipeline' && job && <em>{job.progress || 0}%</em>}</button>)}</nav>
       <div className="sidebar-bottom"><div className="status-dot" /><div><strong>{mock ? 'Sample data enabled' : 'Connected workspace'}</strong><span>{mock ? 'VITE_USE_MOCK=true' : baseUrl || 'API base not set'}</span></div></div>
     </aside>
     <main className="main">
-      <header className="topbar"><div className="crumb">Learning workspace <span>/</span> {page}</div><div className="search"><Icon name="search" /><input placeholder="Search your learning workspace" /></div><div className="avatar">U</div></header>
+      <header className="topbar"><div className="crumb">DevScout <span>/</span> {page}</div><div className="search"><Icon name="search" /><input placeholder="Search concepts, sources, or project tasks..." /><kbd>⌘ K</kbd></div><div className="connection"><span /> API ready</div><div className="avatar" aria-label="Workspace">DS</div></header>
       <div className="content">
         {mock && <div className="sample-label"><span /> Sample data</div>}
         {error && <div className="error-banner"><strong>Something went wrong.</strong> {error} <button onClick={() => { setError(''); setPage('Start Learning'); }}>Retry</button></div>}
@@ -152,7 +152,7 @@ function App() {
 
 function StartLearning({ form, setForm, onSubmit }) {
   const update = (key, value) => setForm({ ...form, [key]: value });
-  return <section className="view intro-view"><div className="eyebrow">PERSONALIZED LEARNING PATH</div><h1>Start with a goal.<br /><span>Build with understanding.</span></h1><p className="lede">Tell us what you want to learn and we’ll turn it into a focused, evidence-backed path you can actually apply.</p><form className="goal-card" onSubmit={onSubmit}><div className="section-heading"><div><span className="number">01</span><h2>Your learning brief</h2></div><span className="required">All fields marked * are required</span></div><div className="field-grid"><label className="wide">What do you want to learn? *<input required value={form.goal} onChange={e => update('goal', e.target.value)} placeholder="e.g. Build a production-ready task API" /></label><label className="wide">Describe the outcome you’re aiming for *<textarea required value={form.description} onChange={e => update('description', e.target.value)} placeholder="What should you be able to understand or do by the end?" rows="3" /></label><label>Project context<input required value={form.project} onChange={e => update('project', e.target.value)} placeholder="e.g. My first backend service" /></label><label>Experience level<select value={form.experience_level} onChange={e => update('experience_level', e.target.value)}><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select></label><label className="wide">Tech stack <input value={form.tech_stack} onChange={e => update('tech_stack', e.target.value)} placeholder="e.g. TypeScript, Node.js, PostgreSQL" /></label></div><label className="toggle-row"><input type="checkbox" checked={form.wants_snippet} onChange={e => update('wants_snippet', e.target.checked)} /><span className="toggle" /><span>Include a small code snippet when it helps me understand</span></label><button className="primary-button" type="submit">Create my learning path <Icon name="arrow" /></button></form></section>;
+  return <section className="view intro-view"><div className="workspace-hero"><div className="eyebrow">EVIDENCE-DRIVEN DEVELOPER LEARNING</div><h1>Learn something.<br />Build something.<br /><span>Understand everything.</span></h1><p className="lede">DevScout turns a real programming goal into a structured path through research, explanation, practice, and implementation.</p><button className="hero-action" onClick={() => document.getElementById('learning-brief')?.scrollIntoView({ behavior: 'smooth' })}>Start a learning journey <Icon name="arrow" /></button></div><form id="learning-brief" className="goal-card" onSubmit={onSubmit}><div className="section-heading"><div><span className="number">01</span><h2>Your learning brief</h2></div><span className="required">Required fields are marked *</span></div><div className="field-grid"><label className="wide">What do you want to learn? *<input required value={form.goal} onChange={e => update('goal', e.target.value)} placeholder="e.g. Build a production-ready task API" /></label><label className="wide">Describe the outcome you’re aiming for *<textarea required value={form.description} onChange={e => update('description', e.target.value)} placeholder="What should you be able to understand or do by the end?" rows="3" /></label><label>Project context<input required value={form.project} onChange={e => update('project', e.target.value)} placeholder="e.g. My first backend service" /></label><label>Experience level<select value={form.experience_level} onChange={e => update('experience_level', e.target.value)}><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select></label><label className="wide">Tech stack <input value={form.tech_stack} onChange={e => update('tech_stack', e.target.value)} placeholder="e.g. TypeScript, Node.js, PostgreSQL" /></label></div><label className="toggle-row"><input type="checkbox" checked={form.wants_snippet} onChange={e => update('wants_snippet', e.target.checked)} /><span className="toggle" /><span>Include a small code snippet when it helps me understand</span></label><button className="primary-button" type="submit">Create my learning path <Icon name="arrow" /></button></form></section>;
 }
 
 function Pipeline({ job, activeStage, onStart }) {
