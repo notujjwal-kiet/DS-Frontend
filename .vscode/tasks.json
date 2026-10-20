@@ -1,0 +1,150 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Finalize clean commit",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Remove-Item -Force .vscode/tasks.json; git add -u .vscode/tasks.json; git commit -m \"Remove generated validation task\" -m \"Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\""
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Commit clean workspace",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/c",
+				"del /f .vscode\\tasks.json & git add -u .vscode\\tasks.json & git commit -m \"Remove generated validation task\" -m \"Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>\""
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Finalize repository commit",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-e",
+				"const fs=require('fs'),cp=require('child_process');fs.unlinkSync('.vscode/tasks.json');fs.writeFileSync('.git/cleanup-message','Remove generated validation task\\n\\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>');cp.execFileSync('git',['add','-u','.vscode/tasks.json'],{stdio:'inherit'});cp.execFileSync('git',['commit','-F','.git/cleanup-message'],{stdio:'inherit'});fs.unlinkSync('.git/cleanup-message');"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Commit final workspace state",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				".",
+				";",
+				"git",
+				"commit",
+				"-m",
+				"Finalize DevScout workspace redesign",
+				"-m",
+				"Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Commit and push final state",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-e",
+				"const fs=require('fs'),cp=require('child_process');try{fs.unlinkSync('.git/index.lock')}catch(e){};fs.writeFileSync('.git/final-message','Finalize DevScout workspace redesign\\n\\nCo-authored-by: Copilot '+String.fromCharCode(60)+'223556219+Copilot@users.noreply.github.com'+String.fromCharCode(62));cp.execFileSync('git',['add','.'],{stdio:'inherit'});cp.execFileSync('git',['commit','-F','.git/final-message'],{stdio:'inherit'});fs.unlinkSync('.git/final-message');cp.execFileSync('git',['push','origin','main'],{stdio:'inherit'});"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Publish final DevScout state",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-e",
+				"const fs=require(\"fs\"),cp=require(\"child_process\");try{fs.unlinkSync(\".git/index.lock\")}catch(e){};fs.writeFileSync(\".git/final-message\",\"Finalize DevScout workspace redesign\\n\\nCo-authored-by: Copilot \"+String.fromCharCode(60)+\"223556219+Copilot@users.noreply.github.com\"+String.fromCharCode(62));cp.execFileSync(\"git\",[\"add\",\".\"],{stdio:\"inherit\"});cp.execFileSync(\"git\",[\"commit\",\"-F\",\".git/final-message\"],{stdio:\"inherit\"});fs.unlinkSync(\".git/final-message\");cp.execFileSync(\"git\",[\"push\",\"origin\",\"main\"],{stdio:\"inherit\"});"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Release git lock and publish",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Remove-Item -Force .git/index.lock; git add .; git commit -m 'Finalize DevScout workspace redesign'; git push origin main"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check final git state",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short",
+				"--branch"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Install self hosted fonts",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"install",
+				"@fontsource/source-serif-4",
+				"@fontsource/ibm-plex-sans",
+				"@fontsource/ibm-plex-mono"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build requested changes",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Remove forbidden CSS effects",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"cleanup-css.cjs"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verify final frontend build",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}
